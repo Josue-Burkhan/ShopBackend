@@ -365,13 +365,19 @@
         "tags": [
           "Cart"
         ],
-        "description": "",
+        "description": "Get all carts",
         "produces": [
           "applications/json"
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successful response with all carts"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "description": "Bad request"
           },
           "500": {
             "description": "Server Error",
@@ -385,22 +391,32 @@
         "tags": [
           "Cart"
         ],
-        "description": "",
+        "description": "Create a new cart",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "products": {
-                  "example": "any"
+                  "type": "array",
+                  "example": [
+                    "product1",
+                    "product2"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "userId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "string"
                 },
                 "cartTotal": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 0
                 }
               }
             }
@@ -408,10 +424,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Cart was created successfully"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error creating cart"
           }
         }
       }
@@ -421,7 +437,7 @@
         "tags": [
           "Cart"
         ],
-        "description": "",
+        "description": "Get cart by user ID",
         "produces": [
           "applications/json"
         ],
@@ -430,18 +446,19 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "User ID of the cart"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successful response with the cart data"
           },
           "400": {
             "schema": {
               "$ref": "#/definitions/Errors"
             },
-            "description": "Bad Request"
+            "description": "Error getting the cart"
           },
           "500": {
             "description": "Server Error",
@@ -455,28 +472,39 @@
         "tags": [
           "Cart"
         ],
-        "description": "",
+        "description": "Update cart by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Cart ID"
           },
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "products": {
-                  "example": "any"
+                  "type": "array",
+                  "example": [
+                    "product1",
+                    "product2"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "userId": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "string"
                 },
                 "cartTotal": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 99.99
                 }
               }
             }
@@ -484,10 +512,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Cart was updated successfully"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error updating cart"
           }
         }
       },
@@ -495,24 +523,25 @@
         "tags": [
           "Cart"
         ],
-        "description": "",
+        "description": "Delete cart by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Cart ID"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Cart was deleted successfully"
           },
           "400": {
             "schema": {
               "$ref": "#/definitions/Errors"
             },
-            "description": "Bad Request"
+            "description": "Error deleting cart"
           },
           "500": {
             "description": "Server Error",
